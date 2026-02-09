@@ -1,0 +1,382 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Посещение корпоратива",
+        "formDescription": "Привет, коллеги!\nЗаполните форму присутствия (или отсутствия) на ближайшем корпоративе.\nТакже если планируете забрать подарок  для себя/детей.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Фамилия Имя",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Рабочая почта",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Придешь на мероприятие?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Да"
+                  },
+                  {
+                    "option": "Нет"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Заберешь подарок для себя?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Да"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Заберешь детский подарок?",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Да"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -320,
+        288
+      ],
+      "id": "d224c018-fc46-4fc5-a7ab-23e9e26e94e3",
+      "name": "On form submission",
+      "webhookId": "e907900b-e73b-4291-93a0-ad8471210194"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1c611OqOftbsQUJshOiykCBHttddUvzS66lhODMejPow",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1c611OqOftbsQUJshOiykCBHttddUvzS66lhODMejPow/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Лист1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1c611OqOftbsQUJshOiykCBHttddUvzS66lhODMejPow/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Фамилия Имя"
+          ],
+          "schema": [
+            {
+              "id": "Фамилия Имя",
+              "displayName": "Фамилия Имя",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Рабочая почта",
+              "displayName": "Рабочая почта",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Придешь на мероприятие?",
+              "displayName": "Придешь на мероприятие?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Заберешь подарок для себя?",
+              "displayName": "Заберешь подарок для себя?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Заберешь детский подарок?",
+              "displayName": "Заберешь детский подарок?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submittedAt",
+              "displayName": "submittedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "formMode",
+              "displayName": "formMode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -96,
+        288
+      ],
+      "id": "3b290b6f-042f-41ac-a1c6-4d74c01d1fed",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "paE1ef2jhAR4l0qq",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "33ef7bdc-442a-40df-8faf-a081b1636cfb",
+              "leftValue": "={{ $json['Заберешь подарок для себя?'][0] }}",
+              "rightValue": "Да",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "b28b43d2-b536-486a-b96d-a9642835b801",
+              "leftValue": "={{ $json['Заберешь детский подарок?'][0] }}",
+              "rightValue": "Да",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        288
+      ],
+      "id": "c132e8eb-fd5d-423f-ab52-597a8c98ef79",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['Рабочая почта'] }}",
+        "subject": "Получение подарков",
+        "message": "=Привет! Твой подарок для себя и детей будет ждать на ресепшене 3 этажа.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        576,
+        192
+      ],
+      "id": "27a2c1df-9f82-4073-af87-8f0dabfd2097",
+      "name": "Send a message",
+      "webhookId": "e5e75436-50d1-457c-ae20-e0531a3a776c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "DHRRmnKewiRrXSfy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "68081404-e67e-442b-b9c6-98c4777c8548",
+              "leftValue": "={{ $json['Придешь на мероприятие?'][0] }}",
+              "rightValue": "Да",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "d1912e79-f163-49c3-98ae-e8a495d73c2b",
+              "leftValue": "={{ $json['Заберешь подарок для себя?'][0] }}",
+              "rightValue": "Да",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        288
+      ],
+      "id": "b9c56c57-1db0-474f-851d-54ceb0359241",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['Рабочая почта'] }}",
+        "subject": "Получение подарков",
+        "message": "=Привет! Твой подарок  будет ждать на 5 этаже в кабинете Хогвартс.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        576,
+        384
+      ],
+      "id": "12c13348-47b6-48f6-927b-9d99bef75f2d",
+      "name": "Send a message1",
+      "webhookId": "e5e75436-50d1-457c-ae20-e0531a3a776c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "DHRRmnKewiRrXSfy",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "420c7ec2-3e17-444a-b906-a07ae1d72b1e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2adcc0249d117ef2b1dc203b206e1fd1a50daf6c66a10956bb7863bdeee9cc4f"
+  },
+  "id": "COI9EetszcMqsL51",
+  "tags": []
+}
